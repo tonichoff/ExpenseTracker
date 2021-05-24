@@ -10,4 +10,6 @@ class Expense {
   DateTime get date => _dateTime;
 
   Expense(this._id, this._description, this._price, this._dateTime);
+
+  Expense.withoutId(this._description, this._price, this._dateTime);
 }

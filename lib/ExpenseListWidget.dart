@@ -11,25 +11,30 @@ class ExpenseListWidget extends StatefulWidget {
 }
 
 class _ExpenseListWidgetState extends State<ExpenseListWidget> {
+  ExpenseDataBase _db = new ExpenseDataBase();
+
+  _ExpenseListWidgetState() {
+    _db.updateDB().then((value) => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
-    var db = new ExpenseDataBase();
-    if (db.expensesCount != 0) {
-      return new Scaffold(
+    if (_db.expensesCount != 0) {
+      return Scaffold(
         body: ListView.separated(
           itemBuilder: (context, index) {
-            return ExpenseWidget(db.get(index));
+            //return ExpenseWidget(_db.get(index));
+            return Text(_db.get(index).description);
           },
           separatorBuilder: (context, index) => Divider(thickness: 10),
-          itemCount: db.expensesCount,
+          itemCount: _db.expensesCount,
         ),
       );
     } else {
       return Center(
           child: Column(
             children: [
-              Text("Здесь пока пусто."),
-              Text("Добавьте свои расходы в меню справа.")
+              Text("У вас пока нет расходов."),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

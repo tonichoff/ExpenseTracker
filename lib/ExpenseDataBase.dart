@@ -1,4 +1,5 @@
 import 'package:expense_tracker/Expense.dart';
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -9,9 +10,9 @@ class ExpenseDataBase {
 
   int get expensesCount => _expenses.length;
 
-  Database get dataBase {
+  Future<Database> get dataBase async {
     if (_dataBase == null) {
-      _dataBase = initializeDataBase();
+      _dataBase = await initializeDataBase();
     }
     return _dataBase;
   }
@@ -31,7 +32,8 @@ class ExpenseDataBase {
   }
 
   Future<List<Expense>> getAllExpenses() async {
-    List<Map> query = await _dataBase.rawQuery("SELECT * FROM Expenses ORDER BY date DESC");
+    Database db = await dataBase;
+    List<Map> query = await db.rawQuery("SELECT * FROM Expenses ORDER BY date DESC");
     var result = List<Expense>();
     query.forEach(
             (r) => result.add(
@@ -48,8 +50,9 @@ class ExpenseDataBase {
 
   Future<void> addExpense(Expense expense) async {
     var dateAsString = expense.date.toString();
-    await _dataBase.rawInsert(
-        "INSERT INTO Expenses (description, price, date) VALUES (\"${expense.description}\", \"$dateAsString\", ${expense.price})"
+    Database db = await dataBase;
+    await db.rawInsert(
+        "INSERT INTO Expenses (description, price, date) VALUES (\"${expense.description}\", ${expense.price}, \"$dateAsString\")"
     );
     await updateDB();
   }
@@ -60,10 +63,12 @@ class ExpenseDataBase {
 
   Future updateDB() async {
     _expenses = await getAllExpenses();
+    debugPrint(_expenses.toString());
   }
 
   void removeAt(int index) async {
-    await _dataBase.rawDelete(
+    Database db = await dataBase;
+    await db.rawDelete(
         "DELETE FROM Expenses WHERE id = \"$index\""
     );
     await updateDB();
@@ -71,7 +76,8 @@ class ExpenseDataBase {
 
   void updateExpense(Expense expense) async {
     var dateAsString = expense.date.toString();
-    await _dataBase.rawUpdate(
+    Database db = await dataBase;
+    await db.rawUpdate(
         "UPDATE Expenses SET description = \"${expense.description}\", price = \"${expense.price}\", date = \"$dateAsString\""
     );
     await updateDB();

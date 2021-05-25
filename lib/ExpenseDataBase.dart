@@ -4,21 +4,16 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
 class ExpenseDataBase {
-  static ExpenseDataBase _instance;
   Database _dataBase;
   List<Expense> _expenses = new List<Expense>();
 
   int get expensesCount => _expenses.length;
 
-  static Future<ExpenseDataBase> get instance async {
-    if (_instance == null) {
-      _instance = new ExpenseDataBase();
+  Database get dataBase {
+    if (_dataBase == null) {
+      _dataBase = initializeDataBase();
     }
-    return _instance;
-  }
-
-  ExpenseDataBase() {
-    _dataBase = initializeDataBase();
+    return _dataBase;
   }
 
   initializeDataBase() async {

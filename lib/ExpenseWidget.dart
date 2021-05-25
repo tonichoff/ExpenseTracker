@@ -1,5 +1,5 @@
 import 'package:expense_tracker/Expense.dart';
-import 'package:expense_tracker/AddExpenseDialog.dart';
+import 'package:expense_tracker/UpdateExpenseDialog.dart';
 
 import 'package:flutter/material.dart';
 
@@ -42,7 +42,7 @@ class _ExpenseWidgetState extends State<ExpenseWidget> {
         Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
-              return AddExpenseDialog();
+              return UpdateExpenseDialog();
             })
         ).then((value) => setState(() {}));
       },

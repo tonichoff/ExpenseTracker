@@ -1,3 +1,4 @@
+import 'package:expense_tracker/AddExpenseDialog.dart';
 import 'package:expense_tracker/ExpenseListWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -32,33 +33,22 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Главная страниа'),
-            bottom: const TabBar(
-              tabs: <Widget>[
-                Tab(
-                  icon: Icon(Icons.list),
-                ),
-                Tab(
-                  icon: Icon(Icons.add),
-                ),
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              Center(
-                child: ExpenseListWidget(),
-              ),
-              Center(
-                child: Text("It's rainy here"),
-              ),
-            ],
-          ),
-        )
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Главная страница'),
+        ),
+        body: ExpenseListWidget(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return AddExpenseDialog();
+              })
+          ).then((value) => setState(() {}));
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

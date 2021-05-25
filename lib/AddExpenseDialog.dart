@@ -8,6 +8,10 @@ class AddExpenseDialog extends StatefulWidget {
 class AddExpenseDialogState extends State<AddExpenseDialog> {
   @override
   Widget build(BuildContext context) {
-    return Text("Add expense dialog");
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Новые расходы"),
+        )
+    );
   }
 }

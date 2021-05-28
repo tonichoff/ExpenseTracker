@@ -65,7 +65,7 @@ class ExpenseDataBase {
     _expenses = await getAllExpenses();
   }
 
-  void removeAt(int index) async {
+  Future removeAt(int index) async {
     Database db = await dataBase;
     await db.rawDelete(
         "DELETE FROM Expenses WHERE id = \"$index\""

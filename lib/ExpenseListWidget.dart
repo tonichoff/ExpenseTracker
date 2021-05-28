@@ -7,8 +7,17 @@ import 'package:flutter/widgets.dart';
 class ExpenseListWidget extends StatefulWidget {
   ExpenseListWidget({Key key}) : super(key: key);
 
+  _ExpenseListWidgetState state;
+
   @override
-  _ExpenseListWidgetState createState() => _ExpenseListWidgetState();
+  _ExpenseListWidgetState createState() {
+    state = _ExpenseListWidgetState();
+    return state;
+  }
+
+  void update() {
+    state.update();
+  }
 }
 
 class _ExpenseListWidgetState extends State<ExpenseListWidget> {
@@ -18,9 +27,8 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
     _db.updateDB().then((value) => setState(() {}));
   }
 
-  void _update() {
+  void update() {
     _db.updateDB().then((value) => setState(() {}));
-    debugPrint("List Updated");
   }
 
   @override
@@ -32,7 +40,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
           itemBuilder: (context, index) {
             var expense = _db.get(index);
             debugPrint(expense.description);
-            return ExpenseWidget(expense, _update);
+            return ExpenseWidget(expense, update);
           },
           separatorBuilder: (context, index) => Divider(thickness: 0),
           itemCount: _db.expensesCount,

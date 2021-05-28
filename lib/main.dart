@@ -33,11 +33,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
+    var list = ExpenseListWidget();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Главная страница'),
         ),
-        body: ExpenseListWidget(),
+        body: list,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -45,7 +46,7 @@ class _MainPageState extends State<MainPage> {
               MaterialPageRoute(builder: (context) {
                 return AddExpenseDialog();
               })
-          ).then((value) => setState(() {}));
+          ).then((value) => setState(() {})).then((value) => list.update());
         },
         child: Icon(Icons.add),
       ),

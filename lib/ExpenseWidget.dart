@@ -21,7 +21,17 @@ class ExpenseWidget extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.attach_money),
               title: Text(_expense.description),
-              subtitle: Text(DateFormat("dd-MM-yyyy HH:mm").format(_expense.date)),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Text("Дата и время: ${DateFormat("dd-MM-yyyy HH:mm").format(_expense.date)}"),
+                const SizedBox(width: 8, height: 8,),
+                Text("Стоимость: ${_expense.price}"),
+              ],
+
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

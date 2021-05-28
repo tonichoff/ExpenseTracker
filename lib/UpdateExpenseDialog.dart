@@ -26,7 +26,7 @@ class UpdateExpenseDialogState extends State<UpdateExpenseDialog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Новые расходы"),
+        title: Text("Редактирование"),
       ),
       body: Form(
         key: _formKey,
@@ -79,7 +79,7 @@ class UpdateExpenseDialogState extends State<UpdateExpenseDialog> {
                         );
                       }
                     },
-                    child: Text('Добавить'),
+                    child: Text('Изменить'),
                   ),
                 )]
           ),

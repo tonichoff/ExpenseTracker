@@ -18,16 +18,25 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
     _db.updateDB().then((value) => setState(() {}));
   }
 
+  void _update() {
+    _db.updateDB().then((value) => setState(() {}));
+    debugPrint("List Updated");
+  }
+
   @override
   Widget build(BuildContext context) {
+    debugPrint("Build list");
     if (_db.expensesCount != 0) {
       return Scaffold(
         body: ListView.separated(
           itemBuilder: (context, index) {
-            return ExpenseWidget(_db.get(index));
+            var expense = _db.get(index);
+            debugPrint(expense.description);
+            return ExpenseWidget(expense, _update);
           },
           separatorBuilder: (context, index) => Divider(thickness: 0),
           itemCount: _db.expensesCount,
+            padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 56)
         ),
       );
     } else {
@@ -39,7 +48,7 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
           ),
-      ); Text("Здесь пока пусто.");
+      );
     }
   }
 }

@@ -63,7 +63,6 @@ class ExpenseDataBase {
 
   Future updateDB() async {
     _expenses = await getAllExpenses();
-    debugPrint(_expenses.toString());
   }
 
   void removeAt(int index) async {
@@ -74,11 +73,10 @@ class ExpenseDataBase {
     await updateDB();
   }
 
-  void updateExpense(Expense expense) async {
-    var dateAsString = expense.date.toString();
+  Future updateExpense(Expense expense) async {
     Database db = await dataBase;
     await db.rawUpdate(
-        "UPDATE Expenses SET description = \"${expense.description}\", price = \"${expense.price}\", date = \"$dateAsString\""
+        "UPDATE Expenses SET description = \"${expense.description}\", price = \"${expense.price}\" WHERE id = \"${expense.id}\""
     );
     await updateDB();
   }

@@ -4,19 +4,11 @@ import 'package:expense_tracker/UpdateExpenseDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ExpenseWidget extends StatefulWidget {
+class ExpenseWidget extends StatelessWidget {
   Expense _expense;
+  Function _parentCallback;
 
-  ExpenseWidget(this._expense);
-
-  @override
-  State<StatefulWidget> createState() => _ExpenseWidgetState(this._expense);
-}
-
-class _ExpenseWidgetState extends State<ExpenseWidget> {
-  Expense _expense;
-
-  _ExpenseWidgetState(this._expense);
+  ExpenseWidget(this._expense, this._parentCallback);
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +25,18 @@ class _ExpenseWidgetState extends State<ExpenseWidget> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 TextButton(
-                  child: const Text('Изменить'),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return UpdateExpenseDialog(_expense);
-                        })
-                    ).then((value) => setState(() {}));
-                  },
+                    child: const Text('Изменить'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return UpdateExpenseDialog(_expense);
+                          })
+                      ).then((value) {
+                        _parentCallback();
+                        debugPrint("call callback Expense Widget");
+                      });
+                    }
                 ),
                 TextButton(
                   child: const Text('Удалить'),

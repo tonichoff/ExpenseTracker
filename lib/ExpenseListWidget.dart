@@ -1,5 +1,6 @@
 import 'package:expense_tracker/ExpenseDataBase.dart';
 import 'package:expense_tracker/ExpenseWidget.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -23,10 +24,9 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
       return Scaffold(
         body: ListView.separated(
           itemBuilder: (context, index) {
-            //return ExpenseWidget(_db.get(index));
-            return Text(_db.get(index).description);
+            return ExpenseWidget(_db.get(index));
           },
-          separatorBuilder: (context, index) => Divider(thickness: 10),
+          separatorBuilder: (context, index) => Divider(thickness: 0),
           itemCount: _db.expensesCount,
         ),
       );

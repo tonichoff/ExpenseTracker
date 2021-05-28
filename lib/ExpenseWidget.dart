@@ -2,6 +2,7 @@ import 'package:expense_tracker/Expense.dart';
 import 'package:expense_tracker/UpdateExpenseDialog.dart';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ExpenseWidget extends StatefulWidget {
   Expense _expense;
@@ -19,33 +20,38 @@ class _ExpenseWidgetState extends State<ExpenseWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Card(
-        child: Row(
-          children: [
+    return Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
             ListTile(
-              title: Text("${_expense.description}"),
-              leading: Icon(
-                Icons.attach_money,
-                color: Colors.blue[500],
-              ),
+              leading: Icon(Icons.attach_money),
+              title: Text(_expense.description),
+              subtitle: Text(DateFormat("dd-MM-yyyy HH:mm").format(_expense.date)),
             ),
-            Divider(),
-            ListTile(
-              title: Text("${_expense.price}"),
-              subtitle: Text("${_expense.date.toString()}"),
-            )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(
+                  child: const Text('Изменить'),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return UpdateExpenseDialog(_expense);
+                        })
+                    ).then((value) => setState(() {}));
+                  },
+                ),
+                TextButton(
+                  child: const Text('Удалить'),
+                  onPressed: () {/* ... */},
+                ),
+                const SizedBox(width: 8),
+              ],
+            ),
           ],
-        ),
-      ),
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return UpdateExpenseDialog();
-            })
-        ).then((value) => setState(() {}));
-      },
+        )
     );
   }
 }

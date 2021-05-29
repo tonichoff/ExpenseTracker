@@ -80,4 +80,28 @@ class ExpenseDataBase {
     );
     await updateDB();
   }
+
+  int expensesCountInCurrentMonth() {
+    var currentMonth = DateTime.now().month;
+    var currentYear = DateTime.now().year;
+    int count = 0;
+    for (var expense in _expenses) {
+      if (expense.date.month == currentMonth && expense.date.year == currentYear) {
+        ++count;
+      }
+    }
+    return count;
+  }
+
+  double expensesAmountInCurrentMonth() {
+    var currentMonth = DateTime.now().month;
+    var currentYear = DateTime.now().year;
+    double amount = 0;
+    for (var expense in _expenses) {
+      if (expense.date.month == currentMonth && expense.date.year == currentYear) {
+        amount += expense.price;
+      }
+    }
+    return amount;
+  }
 }

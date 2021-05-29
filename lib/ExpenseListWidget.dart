@@ -33,20 +33,21 @@ class _ExpenseListWidgetState extends State<ExpenseListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Build list");
     if (_db.expensesCount != 0) {
-      return Scaffold(
-        body: ListView.separated(
-          itemBuilder: (context, index) {
-            var expense = _db.get(index);
-            debugPrint(expense.description);
-            return ExpenseWidget(expense, update);
-          },
-          separatorBuilder: (context, index) => Divider(thickness: 0),
-          itemCount: _db.expensesCount,
-            padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 56)
-        ),
+      return Center(
+          child: Scaffold(
+            body: ListView.separated(
+                itemBuilder: (context, index) {
+                  var expense = _db.get(index);
+                  return ExpenseWidget(expense, update);
+                  },
+                separatorBuilder: (context, index) => Divider(thickness: 0),
+                itemCount: _db.expensesCount,
+                padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 56)
+            ),
+          )
       );
+
     } else {
       return Center(
           child: Column(

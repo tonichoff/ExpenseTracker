@@ -1,5 +1,7 @@
 import 'package:expense_tracker/AddExpenseDialog.dart';
 import 'package:expense_tracker/ExpenseListWidget.dart';
+import 'package:expense_tracker/StatisticPage.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,7 +9,6 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,22 +35,43 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     var list = ExpenseListWidget();
-    return Scaffold(
+    return
+      DefaultTabController(length: 2, child: Scaffold(
         appBar: AppBar(
           title: const Text('Главная страница'),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.list),
+              ),
+              Tab(
+                icon: Icon(Icons.analytics),
+              ),
+            ],
+          ),
         ),
-        body: list,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        body: TabBarView(
+          children: <Widget>[
+            Center(
+              child: list,
+            ),
+            Center(
+              child: StatisticPage()
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
               context,
               MaterialPageRoute(builder: (context) {
                 return AddExpenseDialog();
               })
-          ).then((value) => setState(() {})).then((value) => list.update());
-        },
-        child: Icon(Icons.add),
-      ),
-    );
+            ).then((value) => setState(() {})).then((value) => list.update());
+          },
+          child: Icon(Icons.add),
+        ),
+    )
+      );
   }
 }

@@ -1,8 +1,8 @@
-import 'package:expense_tracker/Expense.dart';
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+
+import 'package:expense_tracker/Expense.dart';
 
 class ExpenseDataBase {
   Database _dataBase;

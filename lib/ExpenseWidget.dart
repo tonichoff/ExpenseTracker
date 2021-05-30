@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'package:expense_tracker/Expense.dart';
 import 'package:expense_tracker/UpdateExpenseDialog.dart';
 import 'ExpenseDataBase.dart';
-
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ExpenseWidget extends StatelessWidget {
   Expense _expense;

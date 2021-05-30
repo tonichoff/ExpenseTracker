@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:expense_tracker/AddExpenseDialog.dart';
 import 'package:expense_tracker/ExpenseListWidget.dart';
 import 'package:expense_tracker/StatisticPage.dart';
-
-import 'package:flutter/material.dart';
 
 void main() {
   runApp(App());
@@ -32,9 +32,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  ExpenseListWidget list = ExpenseListWidget();
+
   @override
   Widget build(BuildContext context) {
-    var list = ExpenseListWidget();
     return
       DefaultTabController(length: 2, child: Scaffold(
         appBar: AppBar(
